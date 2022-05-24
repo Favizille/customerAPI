@@ -9,6 +9,17 @@ class Customer extends Model
 {
     use HasFactory;
 
+    protected $guarded =[];
+    
+    public function format(){
+        return [
+            'customer_id' =>$this->id,
+            'name' => $this->name,
+            'created_by'=>$this->user,
+            'last_updated'=> $this->updated_at->diffForHumans(),
+        ];
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }

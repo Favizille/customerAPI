@@ -18,3 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/customers', [CustomerController::class, 'index']);
+Route::get('/customer/{customer_id}', [CustomerController::class, 'show']);
+Route::get('/customer/{customer_id}/update', [CustomerController::class, 'update']);
+Route::get('/customer/{customer_id}/delete', [CustomerController::class, 'destroy']);
