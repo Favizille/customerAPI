@@ -20,13 +20,30 @@ class CustomerRepository
         ->where("active", 1)
         ->with("user")
         ->get()
-        ->map(function($customer){
-            return [
-                'customer_id' => $customer->id,
-                'name' => $customer->name,
-                'created_by'=> $customer->user,
-                'last_updated'=> $customer->updated_at->diffForHumans(),
-            ];
-        });
+        ->map->format();
     }
+
+    public function getById($customer_id)
+    {
+        $customer = Customer::find($customer_id);
+
+        // return Customer::where("id", $customer_id)
+        // ->where("active", 1)
+        // ->with('user')
+        // ->first();
+        return $customer->format();
+    }
+
+    public function updateCustomer($customer_id)
+    {
+        $customer = Customer::where("id", $customer_id)->first();
+        $customer->update(request()->only("name"));
+
+    }
+
+    public function deleteCustomer($customer_id)
+    {
+        $customer = Customer::where("id", $customer_id)->delete();
+    }
+
 }
